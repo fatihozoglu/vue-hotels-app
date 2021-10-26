@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <main v-if="hotelsData">
+    <Card v-for="hotel in hotelsData" :key="hotel.id" :hotel="hotel" />
+  </main>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Card from "../components/Card.vue";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      hotelsData: null,
+    };
+  },
   components: {
-    HelloWorld,
+    Card,
+  },
+  created() {
+    fetch("data.json")
+      .then((res) => res.json())
+      .then((data) => (this.hotelsData = data));
   },
 };
 </script>
+
+<style scoped></style>

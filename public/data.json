@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "name": "Vdara Hotel & Spa at ARIA Las Vegas",
+    "photo": "vdara.webp",
+    "star": 5,
+    "price": 3434,
+    "location": "Las Vegas",
+    "type": "Studio",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation"
+  },
+  {
+    "id": 2,
+    "name": "The Cromwell Hotel & Casino",
+    "photo": "cromwell.webp",
+    "star": 4,
+    "price": 3800,
+    "location": "Las Vegas",
+    "type": "Delux King Room - No Smoking",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation"
+  },
+  {
+    "id": 3,
+    "name": "NoMad Las Vegas",
+    "photo": "nomad.webp",
+    "star": 3,
+    "price": 3600,
+    "location": "Las Vegas",
+    "type": "Classic King with a King Bed",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation"
+  },
+  {
+    "id": 4,
+    "name": "Delano Las Vegas at Mandalay Bay",
+    "photo": "delano.webp",
+    "star": 5,
+    "price": 3840,
+    "location": "Las Vegas",
+    "type": "Delano King Suit",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation"
+  }
+]
