@@ -2,7 +2,10 @@
   <div v-if="selectedHotel">
     <h4 class="mb-0">{{ selectedHotel.name }}</h4>
     <Star :num="selectedHotel.star" />
-    <p>{{ selectedHotel.location }}</p>
+    <p>
+      <i class="fa fa-map-marker me-2" aria-hidden="true"></i
+      >{{ selectedHotel.location }}
+    </p>
     <div class="d-flex gap-5">
       <div
         id="carouselExampleFade"
@@ -44,14 +47,16 @@
       <div>
         <p class="num-select rounded">How many adults are coming?</p>
         <div class="mb-3">
-          <select @change="sendData" class="rounded mb-5" v-model="guestNum">
+          <select class="rounded mb-5" v-model="guestNum">
             <option v-for="(i, ind) in 10" :key="ind" :value="i">
               {{ i }}
             </option>
           </select>
         </div>
-        <router-link class="book-btn rounded" :to="{ name: 'Reservation' }"
-          >Book Now</router-link
+        <router-link :to="{ name: 'Reservation' }"
+          ><button class="book-btn rounded" @click="sendData">
+            Book Now
+          </button></router-link
         >
       </div>
     </div>

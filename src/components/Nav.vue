@@ -16,15 +16,24 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link active" to="/">Stays</router-link>
+            <router-link class="nav-link active" to="/"
+              ><i class="fa fa-bed me-2" aria-hidden="true"></i
+              >Stays</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">Flights</router-link>
+            <router-link class="nav-link" to="/"
+              ><i class="fa fa-plane me-2" aria-hidden="true"></i
+              >Flights</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">Car Rentals</router-link>
+            <router-link class="nav-link" to="/"
+              ><i class="fa fa-car me-2" aria-hidden="true"></i>Car
+              Rentals</router-link
+            >
           </li>
         </ul>
       </div>
@@ -57,7 +66,7 @@ export default {
 .nav-item {
   font-size: 14px;
   font-weight: 500;
-  width: 100px;
+  width: 120px;
   height: 40px;
   text-align: center;
 }

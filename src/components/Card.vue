@@ -13,6 +13,7 @@
         <Star :num="hotel.star" />
       </p>
       <p class="card-text blue mb-2">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
         {{ hotel.location }}
       </p>
       <p class="card-text">
@@ -27,6 +28,14 @@
         class="book-btn rounded"
         >Book a Room</router-link
       >
+    </div>
+    <div class="d-flex ms-auto">
+      <div class="d-flex flex-column align-items-center">
+        <span class="me-2">{{ rating }}</span>
+        <small class="small">652 Reviews</small>
+      </div>
+
+      <div class="rating">{{ hotel.rating }}</div>
     </div>
   </div>
 </template>
@@ -45,13 +54,19 @@ export default {
     hotelName() {
       return this.hotel.name.split(" ").join("-");
     },
+    rating() {
+      if (this.hotel.rating > 9) return "Wonderful";
+      else if (this.hotel.rating > 8.5) return "Excellent";
+      else if (this.hotel.rating > 8) return "Very Good";
+      else return "Good";
+    },
   },
 };
 </script>
 
 <style scoped>
 .custom-card {
-  width: 100%;
+  width: 70%;
   display: flex;
   padding: 10px;
   border: 1px solid rgb(187, 187, 187);
@@ -86,5 +101,24 @@ export default {
 
 .book-btn:hover {
   background-color: #043580;
+}
+
+.rating {
+  font-size: 16px;
+  font-weight: 500;
+  width: 32px;
+  height: 32px;
+  background-color: #043580;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px 5px 5px 0;
+}
+
+.small {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(107, 107, 107);
 }
 </style>

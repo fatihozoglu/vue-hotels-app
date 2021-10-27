@@ -9,6 +9,7 @@
     "type": "Studio",
     "bed": "1 King Bed",
     "cancel": "FREE Cancellation",
+    "rating": 8.5,
     "detailPhotos": [
       "vdara1.jpg",
       "vdara2.jpg",
@@ -32,6 +33,7 @@
     "type": "Delux King Room - No Smoking",
     "bed": "1 King Bed",
     "cancel": "FREE Cancellation",
+    "rating": 8.3,
     "detailPhotos": [
       "cwell1.jpg",
       "cwell2.jpg",
@@ -55,6 +57,7 @@
     "type": "Classic King with a King Bed",
     "bed": "1 King Bed",
     "cancel": "FREE Cancellation",
+    "rating": 9.1,
     "detailPhotos": [
       "nomad1.jpg",
       "nomad2.jpg",
@@ -70,7 +73,7 @@
   },
   {
     "id": 4,
-    "name": "Delano Las Vegas at Mandalay Bay",
+    "name": "Delano at Mandalay Bay",
     "photo": "delano.webp",
     "star": 5,
     "price": 3840,
@@ -78,6 +81,7 @@
     "type": "Delano King Suit",
     "bed": "1 King Bed",
     "cancel": "FREE Cancellation",
+    "rating": 8.8,
     "detailPhotos": [
       "delano1.jpg",
       "delano2.jpg",

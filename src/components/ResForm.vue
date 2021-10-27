@@ -5,12 +5,80 @@
         <legend class="rounded">Guest - {{ num }}</legend>
         <div class="columns">
           <div class="item">
-            <label for="fname">First Name<span>*</span></label>
-            <input id="fname" type="text" name="fname" />
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.fname.$error }"
+            ></div>
+            <label class="form__label" for="fname"
+              >First Name<span>*</span></label
+            >
+            <input
+              class="form__input"
+              v-model.trim="$v.fname.$model"
+              id="fname"
+              type="text"
+              name="fname"
+            />
+            <div class="error" v-if="!$v.fname.required && $v.fname.$dirty">
+              Name is required
+            </div>
+            <div class="error" v-if="!$v.fname.minLength">
+              Name must have at least
+              {{ $v.fname.$params.minLength.min }} letters.
+            </div>
           </div>
           <div class="item">
-            <label for="lname"> Last Name<span>*</span></label>
-            <input id="lname" type="text" name="lname" />
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.lname.$error }"
+            ></div>
+            <label class="form__label" for="lname">
+              Last Name<span>*</span></label
+            >
+            <input
+              class="form__input"
+              v-model.trim="$v.lname.$model"
+              id="lname"
+              type="text"
+              name="lname"
+            />
+            <div class="error" v-if="!$v.lname.required && $v.lname.$dirty">
+              Last name is required
+            </div>
+            <div class="error" v-if="!$v.lname.minLength">
+              Name must have at least
+              {{ $v.lname.$params.minLength.min }} letters.
+            </div>
+          </div>
+          <div class="item">
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.age.$error }"
+            >
+              <label class="form__label" for="age">Age<span>*</span></label>
+              <input
+                class="form__input"
+                id="age"
+                type="number"
+                name="age"
+                v-model.trim="$v.age.$model"
+              />
+            </div>
+            <div class="error" v-if="!$v.age.required && $v.age.$dirty">
+              Age is required
+            </div>
+            <div class="error" v-if="!$v.age.minValue">
+              Must be older than {{ $v.age.$params.minValue.min }}
+            </div>
+          </div>
+          <div class="item">
+            <label class="d-block mb-1" for="sex">Sex</label>
+            <select name="sex" id="sex">
+              <option value="" disabled selected>Select Your Sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <div class="item">
             <label for="tc">Identity No.<span>*</span></label>
@@ -21,20 +89,30 @@
             <input id="hes" type="text" name="hes" />
           </div>
           <div class="item">
-            <label for="eaddress">Email Address<span>*</span></label>
-            <input id="eaddress" type="text" name="eaddress" />
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.email.$error }"
+            ></div>
+            <label class="form__label" for="email"
+              >Email Address<span>*</span></label
+            >
+            <input
+              class="form__input"
+              v-model.trim="$v.email.$model"
+              id="email"
+              type="email"
+              name="email"
+            />
+            <div class="error" v-if="!$v.email.required && $v.email.$dirty">
+              Email is required
+            </div>
+            <div class="error" v-if="!$v.email.email">
+              Please enter a valid e-mail adress
+            </div>
           </div>
           <div class="item">
             <label for="phone">Phone<span>*</span></label>
             <input id="phone" type="tel" name="phone" />
-          </div>
-          <div class="item">
-            <label for="age">Age<span>*</span></label>
-            <input id="age" type="number" name="age" />
-          </div>
-          <div class="item">
-            <label for="sex">Sex<span>*</span></label>
-            <input id="sex" type="text" name="sex" />
           </div>
         </div>
       </fieldset>
@@ -44,8 +122,19 @@
 </template>
 
 <script>
+import { FormValidation } from "../mixins/FormValidation";
+
 export default {
   name: "ResForm",
+  mixins: [FormValidation],
+  data() {
+    return {
+      fname: "",
+      lname: "",
+      age: "",
+      email: "",
+    };
+  },
   props: {
     num: Number,
   },
@@ -118,6 +207,9 @@ textarea {
   width: calc(100% - 12px);
   padding: 5px;
 }
+select {
+  height: 30px;
+}
 .item:hover p,
 .item:hover i,
 .item input:hover,
@@ -125,7 +217,7 @@ textarea {
 .item textarea:hover {
   border: 1px solid transparent;
   box-shadow: 0 0 3px 0 #1a4a8d;
-  color: #006622;
+  color: #1a4a8d;
 }
 .item {
   position: relative;
@@ -148,45 +240,6 @@ textarea {
 .columns div {
   width: 48%;
 }
-input[type="radio"],
-input[type="checkbox"] {
-  display: none;
-}
-label.radio {
-  position: relative;
-  display: inline-block;
-  margin: 5px 20px 15px 0;
-  cursor: pointer;
-}
-label.radio:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-}
-input[type="radio"]:checked + label:before,
-label.radio:hover:before {
-  border: 2px solid #006622;
-}
-label.radio:after {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 5px;
-  width: 8px;
-  height: 4px;
-  border: 3px solid #006622;
-  border-top: none;
-  border-right: none;
-  transform: rotate(-45deg);
-  opacity: 0;
-}
-input[type="radio"]:checked + label:after {
-  opacity: 1;
-}
 .btn-block {
   margin-top: 10px;
   text-align: center;
@@ -203,6 +256,9 @@ button {
 }
 button:hover {
   background: #14396d;
+}
+.error {
+  color: red;
 }
 @media (min-width: 568px) {
   .name-item,

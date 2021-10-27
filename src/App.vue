@@ -1,15 +1,14 @@
 <template>
   <div id="app">
     <Nav class="nav-component fixed-top" />
-    <div class="row">
-      <main v-if="hotelsData" class="main">
-        <router-view
-          @sendData="getNumber"
-          :hotelsData="hotelsData"
-          :guestNumber="guestNumber"
-        />
-      </main>
-    </div>
+    <div v-if="!hotelsData">Loading...</div>
+    <main v-else class="main">
+      <router-view
+        @sendData="getNumber"
+        :hotelsData="hotelsData"
+        :guestNumber="guestNumber"
+      />
+    </main>
   </div>
 </template>
 
@@ -20,7 +19,7 @@ export default {
   data() {
     return {
       hotelsData: null,
-      guestNumber: null,
+      guestNumber: 0,
     };
   },
   components: {
