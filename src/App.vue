@@ -2,7 +2,13 @@
   <div id="app">
     <Nav class="nav-component fixed-top" />
     <div class="row">
-      <main class="main"><router-view /></main>
+      <main v-if="hotelsData" class="main">
+        <router-view
+          @sendData="getNumber"
+          :hotelsData="hotelsData"
+          :guestNumber="guestNumber"
+        />
+      </main>
     </div>
   </div>
 </template>
@@ -11,8 +17,24 @@
 import Nav from "./components/Nav.vue";
 
 export default {
+  data() {
+    return {
+      hotelsData: null,
+      guestNumber: null,
+    };
+  },
   components: {
     Nav,
+  },
+  methods: {
+    getNumber(val) {
+      this.guestNumber = val;
+    },
+  },
+  created() {
+    fetch("data.json")
+      .then((res) => res.json())
+      .then((data) => (this.hotelsData = data));
   },
 };
 </script>
@@ -20,13 +42,12 @@ export default {
 <style scoped>
 #app {
   width: 100%;
-  margin: 0 auto;
 }
 .nav-component {
   width: 100%;
   padding: 20px 50px;
 }
 .main {
-  padding: 150px 50px 50px 100px;
+  padding: 120px 50px 50px 100px;
 }
 </style>

@@ -1,14 +1,26 @@
 [
   {
     "id": 1,
-    "name": "Vdara Hotel & Spa at ARIA Las Vegas",
+    "name": "Vdara Hotel & Spa",
     "photo": "vdara.webp",
     "star": 5,
     "price": 3434,
     "location": "Las Vegas",
     "type": "Studio",
     "bed": "1 King Bed",
-    "cancel": "FREE Cancellation"
+    "cancel": "FREE Cancellation",
+    "detailPhotos": [
+      "vdara1.jpg",
+      "vdara2.jpg",
+      "vdara3.jpg",
+      "vdara4.jpg",
+      "vdara5.jpg",
+      "vdara6.jpg",
+      "vdara7.jpg",
+      "vdara8.jpg",
+      "vdara9.jpg",
+      "vdara10.jpg"
+    ]
   },
   {
     "id": 2,
@@ -19,18 +31,42 @@
     "location": "Las Vegas",
     "type": "Delux King Room - No Smoking",
     "bed": "1 King Bed",
-    "cancel": "FREE Cancellation"
+    "cancel": "FREE Cancellation",
+    "detailPhotos": [
+      "cwell1.jpg",
+      "cwell2.jpg",
+      "cwell3.jpg",
+      "cwell4.jpg",
+      "cwell5.jpg",
+      "cwell6.jpg",
+      "cwell7.jpg",
+      "cwell8.jpg",
+      "cwell9.jpg",
+      "cwell10.jpg"
+    ]
   },
   {
     "id": 3,
-    "name": "NoMad Las Vegas",
+    "name": "NoMad Hotel",
     "photo": "nomad.webp",
     "star": 3,
     "price": 3600,
     "location": "Las Vegas",
     "type": "Classic King with a King Bed",
     "bed": "1 King Bed",
-    "cancel": "FREE Cancellation"
+    "cancel": "FREE Cancellation",
+    "detailPhotos": [
+      "nomad1.jpg",
+      "nomad2.jpg",
+      "nomad3.jpg",
+      "nomad4.jpg",
+      "nomad5.jpg",
+      "nomad6.jpg",
+      "nomad7.jpg",
+      "nomad8.jpg",
+      "nomad9.jpg",
+      "nomad10.jpg"
+    ]
   },
   {
     "id": 4,
@@ -41,6 +77,18 @@
     "location": "Las Vegas",
     "type": "Delano King Suit",
     "bed": "1 King Bed",
-    "cancel": "FREE Cancellation"
+    "cancel": "FREE Cancellation",
+    "detailPhotos": [
+      "delano1.jpg",
+      "delano2.jpg",
+      "delano3.jpg",
+      "delano4.jpg",
+      "delano5.jpg",
+      "delano6.jpg",
+      "delano7.jpg",
+      "delano8.jpg",
+      "delano9.jpg",
+      "delano10.jpg"
+    ]
   }
 ]

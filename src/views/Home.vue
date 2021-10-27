@@ -9,18 +9,14 @@ import Card from "../components/Card.vue";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      hotelsData: null,
-    };
+  props: {
+    hotelsData: {
+      type: Array,
+      required: true,
+    },
   },
   components: {
     Card,
-  },
-  created() {
-    fetch("data.json")
-      .then((res) => res.json())
-      .then((data) => (this.hotelsData = data));
   },
 };
 </script>

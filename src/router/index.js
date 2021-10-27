@@ -8,13 +8,22 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    props: true,
     component: Home,
   },
   {
-    path: "/details/:id",
-    name: "Details",
+    path: "/hotels/:name",
+    name: "Hotels",
+    props: true,
     component: () =>
-      import(/* webpackChunkName: "details" */ "../views/Details.vue"),
+      import(/* webpackChunkName: "details" */ "../views/Hotels.vue"),
+  },
+  {
+    path: "/reservation",
+    name: "Reservation",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "details" */ "../views/Reservation.vue"),
   },
 ];
 

@@ -23,7 +23,7 @@
         {{ hotel.cancel }}
       </p>
       <router-link
-        :to="{ name: 'Details', params: { id: hotel.id } }"
+        :to="{ name: 'Hotels', params: { name: hotelName } }"
         class="book-btn rounded"
         >Book a Room</router-link
       >
@@ -41,14 +41,17 @@ export default {
   props: {
     hotel: Object,
   },
+  computed: {
+    hotelName() {
+      return this.hotel.name.split(" ").join("-");
+    },
+  },
 };
 </script>
 
 <style scoped>
 .custom-card {
   width: 100%;
-  min-width: 583px;
-  height: 220px;
   display: flex;
   padding: 10px;
   border: 1px solid rgb(187, 187, 187);
