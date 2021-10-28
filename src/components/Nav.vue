@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <router-link class="navbar-brand me-5" to="/"
+      <router-link class="navbar-brand me-5" :to="{ name: 'Home' }"
         ><img class="img-fluid" alt="logo" src="../assets/logo.png"
       /></router-link>
       <button
@@ -18,19 +18,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link active" to="/"
+            <router-link class="nav-link active" :to="{ name: 'Home' }"
               ><i class="fa fa-bed me-2" aria-hidden="true"></i
               >Stays</router-link
             >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/"
+            <router-link class="nav-link" :to="{ name: 'Home' }"
               ><i class="fa fa-plane me-2" aria-hidden="true"></i
               >Flights</router-link
             >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/"
+            <router-link class="nav-link" :to="{ name: 'Home' }"
               ><i class="fa fa-car me-2" aria-hidden="true"></i>Car
               Rentals</router-link
             >
@@ -51,6 +51,7 @@ export default {
 .navbar {
   background-color: #043580;
   color: white;
+  padding: 20px 50px;
 }
 
 .navbar-brand {

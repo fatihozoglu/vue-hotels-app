@@ -1,24 +1,223 @@
 <template>
-  <main v-if="hotelsData">
-    <Card v-for="hotel in hotelsData" :key="hotel.id" :hotel="hotel" />
+  <main class="home">
+    <h1 class="home-heading mb-0">
+      Find deals on hotels, homes, and much more...
+    </h1>
+    <p class="home-text mb-5">
+      From cozy country homes to funky city apartments
+    </p>
+    <div class="input-container">
+      <input
+        value="Las Vegas"
+        class="location-input"
+        type="text"
+        placeholder="Where are you going?"
+      />
+      <div class="date-input-container">
+        <span class="me-3">{{ checkinDate }}</span>
+        <span class="me-3">-</span>
+        <span>{{ checkoutDate }}</span>
+        <input v-model="checkinDate" class="datepicker-input" type="date" />
+        <input
+          v-model="checkoutDate"
+          class="datepicker-input checkout"
+          type="date"
+        />
+      </div>
+      <div class="guest-input">
+        <span class="me-2">2 Adults</span><span class="me-2">-</span
+        ><span class="me-2">2 Children</span><span class="me-2">-</span>
+        <span>1 Room</span>
+      </div>
+      <router-link class="search-button" :to="{ name: 'HotelResults' }"
+        ><button>Search</button></router-link
+      >
+    </div>
+    <h2>Destination Ideas</h2>
+    <div class="destination-ideas">
+      <div class="destination1">
+        <p class="dest-name">San Francisco</p>
+      </div>
+      <div class="destination2">
+        <p class="dest-name">New York</p>
+      </div>
+      <div class="destination3">
+        <p class="dest-name">San Diego</p>
+      </div>
+    </div>
   </main>
 </template>
 
 <script>
-import Card from "../components/Card.vue";
-
 export default {
   name: "Home",
-  props: {
-    hotelsData: {
-      type: Array,
-      required: true,
-    },
+  data() {
+    return {
+      checkinDate: "Check-in ",
+      checkoutDate: "Check-out ",
+    };
   },
-  components: {
-    Card,
+  computed: {
+    calculateDays() {
+      let checkin = new Date(this.checkinDate);
+      let checkout = new Date(this.checkoutDate);
+      let difference = checkout.getTime() - checkin.getTime();
+      return difference / (1000 * 3600 * 24);
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.home {
+  min-height: 100vh;
+  padding: 130px 60px 30px 60px;
+  background-color: #f5f5f5;
+  color: rgb(51, 51, 51);
+}
+.home-heading {
+  font-size: 24px;
+  font-weight: 600;
+}
+.home-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+.input-container {
+  width: 100%;
+  border: 4px solid #fcbb01;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 50px;
+}
+.location-input,
+.date-input-container {
+  height: 52px;
+  outline: none;
+  border: none;
+  padding-left: 50px;
+  display: flex;
+  align-items: center;
+}
+.location-input {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-image: url("https://cf.bstatic.com/static/img/cross_product_index/accommodation/07ca5cacc9d77a7b50ca3c424ecd606114d9be75.svg");
+  background-repeat: no-repeat;
+  background-position-x: 15px;
+  background-position-y: center;
+  border-right: 4px solid #fcbb01;
+}
+.date-input-container {
+  font-size: 16px;
+  position: relative;
+  grid-column-start: 3;
+  grid-column-end: 5;
+  background-color: white;
+  background-image: url("https://cdn2.iconfinder.com/data/icons/web/512/Calendar-512.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position-x: 15px;
+  background-position-y: center;
+  border-right: 4px solid #fcbb01;
+}
+.datepicker-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 45%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.checkout {
+  position: absolute;
+  left: 150px;
+  top: 0;
+  width: 45%;
+}
+.guest-input {
+  height: 52px;
+  grid-column-start: 5;
+  grid-column-end: 7;
+  padding-left: 45px;
+  background-color: white;
+  background-image: url(//cf.bstatic.com/static/img/cross_product_index/guest/b2e5f2aa32b71ca0fc66aa671e4e958bcd69b7d0.svg);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position-x: 15px;
+  background-position-y: center;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-right: 4px solid #fcbb01;
+}
+.search-button {
+  grid-column-start: 7;
+  grid-column-end: 8;
+}
+button {
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #1471c2;
+  height: 100%;
+  width: 100%;
+}
+button:hover {
+  background-color: #005999;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+}
+.destination-ideas {
+  width: 100%;
+  height: 250px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 20px;
+}
+.destination1 {
+  background: url(https://cf.bstatic.com/xdata/images/city/540x270/689394.webp?k=23b0050a839e18850cc6b64186787bdd846385ae280f2bdff2ced0a438f72112&o=)
+    no-repeat center center;
+  background-size: cover;
+}
+.destination2 {
+  background: url(https://cf.bstatic.com/xdata/images/city/540x270/856674.webp?k=70a9589c2f7d2fc175c3ac02c55702c2e433f588866756a394cddfe215170f38&o=)
+    no-repeat center center;
+  background-size: cover;
+}
+.destination3 {
+  background: url(https://cf.bstatic.com/xdata/images/city/540x270/689373.webp?k=653f4e64198a8728a4ca792a53cc44103b1c1ab8ab3a0328033fb253383ea13e&o=)
+    no-repeat center center;
+  background-size: cover;
+}
+.dest-name {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(38, 38, 38, 1) 100%
+  );
+  padding: 10px 20px;
+  font-size: 30px;
+  font-weight: 600;
+  color: rgb(241, 241, 241);
+  text-shadow: 1px 1px #030303;
+}
+</style>

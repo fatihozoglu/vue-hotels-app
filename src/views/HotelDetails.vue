@@ -1,5 +1,5 @@
 <template>
-  <div v-if="selectedHotel">
+  <main class="main" v-if="selectedHotel">
     <h4 class="mb-0">{{ selectedHotel.name }}</h4>
     <Star :num="selectedHotel.star" />
     <p>
@@ -47,31 +47,31 @@
       <div>
         <p class="num-select rounded">How many adults are coming?</p>
         <div class="mb-3">
-          <select class="rounded mb-5" v-model="guestNum">
+          <select class="rounded mb-5" v-model="guestNumber">
             <option v-for="(i, ind) in 10" :key="ind" :value="i">
               {{ i }}
             </option>
           </select>
         </div>
         <router-link :to="{ name: 'Reservation' }"
-          ><button class="book-btn rounded" @click="sendData">
+          ><button class="book-btn rounded" @click="setGuestNumber">
             Book Now
           </button></router-link
         >
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 import Star from "../components/Star.vue";
 
 export default {
-  name: "Hotels",
+  name: "HotelDetails",
   data() {
     return {
       selectedHotel: null,
-      guestNum: 1,
+      guestNumber: 1,
     };
   },
   props: {
@@ -88,8 +88,8 @@ export default {
     Star,
   },
   methods: {
-    sendData() {
-      this.$emit("sendData", this.guestNum);
+    setGuestNumber() {
+      this.$emit("setGuestNumber", this.guestNumber);
     },
   },
   created() {
@@ -101,6 +101,11 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background-color: #f5f5f5;
+  padding: 120px 50px 50px 50px;
+  min-height: 100vh;
+}
 .carousel {
   width: 50%;
 }

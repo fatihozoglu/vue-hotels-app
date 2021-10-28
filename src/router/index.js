@@ -12,18 +12,25 @@ const routes = [
     component: Home,
   },
   {
-    path: "/hotels/:name",
-    name: "Hotels",
+    path: "/hotels",
+    name: "HotelResults",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "details" */ "../views/Hotels.vue"),
+      import(/* webpackChunkName: "Hotels" */ "../views/HotelResults.vue"),
+  },
+  {
+    path: "/hotels/:name",
+    name: "HotelDetails",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "Hotels" */ "../views/HotelDetails.vue"),
   },
   {
     path: "/reservation",
     name: "Reservation",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "details" */ "../views/Reservation.vue"),
+      import(/* webpackChunkName: "Reservation" */ "../views/Reservation.vue"),
   },
 ];
 

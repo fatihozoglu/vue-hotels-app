@@ -24,14 +24,14 @@
         {{ hotel.cancel }}
       </p>
       <router-link
-        :to="{ name: 'Hotels', params: { name: hotelName } }"
+        :to="{ name: 'HotelDetails', params: { name: hotelName } }"
         class="book-btn rounded"
         >Book a Room</router-link
       >
     </div>
     <div class="d-flex ms-auto">
       <div class="d-flex flex-column align-items-center">
-        <span class="me-2">{{ rating }}</span>
+        <span class="me-2">{{ setRatingText }}</span>
         <small class="small">652 Reviews</small>
       </div>
 
@@ -54,7 +54,7 @@ export default {
     hotelName() {
       return this.hotel.name.split(" ").join("-");
     },
-    rating() {
+    setRatingText() {
       if (this.hotel.rating > 9) return "Wonderful";
       else if (this.hotel.rating > 8.5) return "Excellent";
       else if (this.hotel.rating > 8) return "Very Good";

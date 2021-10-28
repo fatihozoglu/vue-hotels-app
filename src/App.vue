@@ -1,11 +1,15 @@
 <template>
-  <div id="app">
+  <div class="app">
+    <!-- Nav component -->
     <Nav class="nav-component fixed-top" />
-    <div v-if="!hotelsData">Loading...</div>
+
+    <!-- If data fetching is not complete, we are showing a div with loading text-->
+    <div v-if="!data">Loading...</div>
+    <!-- If data fetching is successful and we have the data then we are showing the main component -->
     <main v-else class="main">
       <router-view
-        @sendData="getNumber"
-        :hotelsData="hotelsData"
+        @setGuestNumber="getGuestNumber"
+        :hotelsData="data"
         :guestNumber="guestNumber"
       />
     </main>
@@ -18,35 +22,34 @@ import Nav from "./components/Nav.vue";
 export default {
   data() {
     return {
-      hotelsData: null,
-      guestNumber: 0,
+      data: null,
+      guestNumber: null,
     };
   },
   components: {
     Nav,
   },
   methods: {
-    getNumber(val) {
+    getGuestNumber(val) {
       this.guestNumber = val;
     },
   },
   created() {
     fetch("data.json")
       .then((res) => res.json())
-      .then((data) => (this.hotelsData = data));
+      .then((res) => (this.data = res));
   },
 };
 </script>
 
 <style scoped>
-#app {
+.app {
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 .nav-component {
-  width: 100%;
-  padding: 20px 50px;
-}
-.main {
-  padding: 120px 50px 50px 100px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 </style>

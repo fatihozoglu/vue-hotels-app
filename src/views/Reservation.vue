@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <ResForm v-for="(i, ind) in guestNumber" :key="ind" :num="i" />
+  <main class="main">
+    <ResForm v-for="(item, index) in guestNumber" :key="index" :num="item" />
     <div class="btn-block">
       <button type="submit">Submit</button>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -22,6 +22,11 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background-color: #f5f5f5;
+  padding: 120px 50px 50px 50px;
+  min-height: 100vh;
+}
 .btn-block {
   margin-top: 10px;
   text-align: center;
