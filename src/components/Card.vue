@@ -5,7 +5,7 @@
       class="card-img rounded me-3"
       alt="hotel"
     />
-    <div>
+    <div class="w-50">
       <h5 class="card-title blue mb-1">
         {{ hotel.name }}
       </h5>
@@ -23,19 +23,35 @@
       <p class="card-text green mb-3">
         {{ hotel.cancel }}
       </p>
-      <router-link
-        :to="{ name: 'HotelDetails', params: { name: hotelName } }"
-        class="book-btn rounded"
-        >Book a Room</router-link
-      >
     </div>
-    <div class="d-flex ms-auto">
-      <div class="d-flex flex-column align-items-center">
-        <span class="me-2">{{ setRatingText }}</span>
-        <small class="small">652 Reviews</small>
+    <div class="ms-auto d-flex flex-column justify-content-between">
+      <div class="d-flex justify-content-end">
+        <div class="d-flex flex-column">
+          <span class="me-2">{{ setRatingText }}</span>
+          <small>652 Reviews</small>
+        </div>
+        <div class="rating ms-1">{{ hotel.rating }}</div>
       </div>
-
-      <div class="rating">{{ hotel.rating }}</div>
+      <div class="d-flex flex-column align-items-end">
+        <small class="ms-auto"
+          >{{ guestData.days }} night, {{ guestData.adult }} adults,
+          {{ guestData.room }} room(s)</small
+        >
+        <p class="my-0 h4">
+          $
+          {{
+            (hotel.price * guestData.days * guestData.room).toLocaleString(
+              "en-US"
+            )
+          }}
+        </p>
+        <small>+$ {{ tax }} taxes and charges</small>
+        <router-link
+          :to="{ name: 'HotelDetails', params: { name: hotelName } }"
+          class="book-btn rounded d-block mt-2"
+          >See Availability</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +65,7 @@ export default {
   },
   props: {
     hotel: Object,
+    guestData: Object,
   },
   computed: {
     hotelName() {
@@ -60,13 +77,18 @@ export default {
       else if (this.hotel.rating > 8) return "Very Good";
       else return "Good";
     },
+    tax() {
+      return (
+        (this.hotel.price * this.guestData.days * 18) /
+        100
+      ).toLocaleString("en-US");
+    },
   },
 };
 </script>
 
 <style scoped>
 .custom-card {
-  width: 70%;
   display: flex;
   padding: 10px;
   border: 1px solid rgb(187, 187, 187);
@@ -97,6 +119,7 @@ export default {
   color: white;
   padding: 10px 20px;
   background-color: rgb(0, 113, 194);
+  text-align: center;
 }
 
 .book-btn:hover {
@@ -116,7 +139,7 @@ export default {
   border-radius: 5px 5px 5px 0;
 }
 
-.small {
+small {
   font-size: 12px;
   font-weight: 400;
   color: rgb(107, 107, 107);

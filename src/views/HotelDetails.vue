@@ -1,15 +1,21 @@
 <template>
-  <main class="main" v-if="selectedHotel">
-    <h4 class="mb-0">{{ selectedHotel.name }}</h4>
-    <Star :num="selectedHotel.star" />
-    <p>
-      <i class="fa fa-map-marker me-2" aria-hidden="true"></i
-      >{{ selectedHotel.location }}
+  <main class="main">
+    <div class="d-flex">
+      <h4 class="hotel-name m-0 me-2">{{ selectedHotel.name }}</h4>
+      <Star class="m-0" :num="selectedHotel.star" />
+    </div>
+    <p class="hotel-location">
+      <i
+        style="color: #1677cc; font-size: 20px"
+        class="fa fa-map-marker me-2"
+        aria-hidden="true"
+      ></i
+      >{{ selectedHotel.adress }}
     </p>
     <div class="d-flex gap-5">
       <div
         id="carouselExampleFade"
-        class="carousel slide carousel-fade"
+        class="carousel slide carousel-fade w-50"
         data-bs-ride="carousel"
       >
         <div class="carousel-inner">
@@ -44,19 +50,97 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-      <div>
-        <p class="num-select rounded">How many adults are coming?</p>
-        <div class="mb-3">
-          <select class="rounded mb-5" v-model="guestNumber">
-            <option v-for="(i, ind) in 10" :key="ind" :value="i">
-              {{ i }}
-            </option>
-          </select>
+      <div class="w-50">
+        <h2 class="heading">Booking Details</h2>
+        <div
+          class="
+            booking-details
+            w-100
+            p-3
+            d-flex
+            align-items-start
+            justify-content-between
+            mb-3
+          "
+        >
+          <div>
+            <p class="m-0 details-heading">Check-in Date</p>
+            <p class="m-0 details-body">{{ guestData.checkinDate }}</p>
+            <small class="m-0">From 3:00 PM</small>
+          </div>
+          <div>
+            <p class="m-0 details-heading">Check-out Date</p>
+            <p class="m-0 details-body">{{ guestData.checkoutDate }}</p>
+            <small class="m-0">{{ guestData.days }} night(s) stay</small>
+          </div>
+          <div>
+            <p class="m-0 details-heading">Guests</p>
+            <p class="m-0 details-body">{{ guestData.adult }} Adult(s)</p>
+            <p class="m-0 details-body" v-if="guestData.children !== 0">
+              {{ guestData.children }} Children
+            </p>
+          </div>
         </div>
-        <router-link :to="{ name: 'Reservation' }"
-          ><button class="book-btn rounded" @click="setGuestNumber">
-            Book Now
-          </button></router-link
+        <div
+          class="
+            booking-details
+            w-100
+            p-3
+            d-flex
+            align-items-start
+            justify-content-between
+            mb-4
+          "
+        >
+          <div>
+            <p class="m-0 details-heading">Rooms</p>
+            <p class="m-0 details-body">{{ guestData.room }} Room(s)</p>
+          </div>
+          <div>
+            <p class="m-0 details-heading">Room Price</p>
+            <p class="m-0 details-body">
+              $
+              {{
+                (
+                  selectedHotel.price *
+                  guestData.room *
+                  guestData.days
+                ).toLocaleString("en-US")
+              }}
+            </p>
+          </div>
+          <div>
+            <p class="m-0 details-heading">Taxes</p>
+            <p class="m-0 details-body">
+              $
+              {{
+                (
+                  (selectedHotel.price * guestData.room * guestData.days * 18) /
+                  100
+                ).toLocaleString("en-US")
+              }}
+            </p>
+          </div>
+          <div>
+            <p class="m-0 details-heading">Total Price</p>
+            <p class="m-0 details-body">
+              $
+              {{
+                (
+                  selectedHotel.price * guestData.room * guestData.days +
+                  (selectedHotel.price * guestData.room * guestData.days * 18) /
+                    100
+                ).toLocaleString("en-US")
+              }}
+            </p>
+          </div>
+        </div>
+        <router-link
+          :to="{
+            name: 'Reservation',
+            params: { selectedHotel: selectedHotel },
+          }"
+          ><button class="book-btn rounded w-100">Book Now</button></router-link
         >
       </div>
     </div>
@@ -71,7 +155,6 @@ export default {
   data() {
     return {
       selectedHotel: null,
-      guestNumber: 1,
     };
   },
   props: {
@@ -83,14 +166,10 @@ export default {
       type: String,
       required: true,
     },
+    guestData: { type: Object, required: true },
   },
   components: {
     Star,
-  },
-  methods: {
-    setGuestNumber() {
-      this.$emit("setGuestNumber", this.guestNumber);
-    },
   },
   created() {
     this.selectedHotel = this.hotelsData.find(
@@ -109,11 +188,6 @@ export default {
 .carousel {
   width: 50%;
 }
-.num-select {
-  padding: 10px 30px;
-  background-color: #1a4a8d;
-  color: white;
-}
 .book-btn {
   text-decoration: none;
   padding: 20px 100px;
@@ -124,12 +198,35 @@ export default {
 .book-btn:hover {
   background-color: #043580;
 }
-
-select {
-  width: 50px;
-  height: 40px;
-  padding-left: 10px;
-  border: 1px solid #1a4a8d;
-  outline: none;
+.hotel-name {
+  font-size: 25px;
+  font-weight: 700;
+}
+.hotel-location {
+  font-size: 14px;
+  font-weight: 400;
+}
+.booking-details {
+  border: 1px solid rgb(197, 197, 197);
+  border-radius: 3px;
+}
+.heading {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(51, 51, 51);
+}
+.details-heading {
+  font-size: 14px;
+  font-weight: 700;
+}
+.details-body {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(0, 113, 194);
+}
+small {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b6b6b;
 }
 </style>

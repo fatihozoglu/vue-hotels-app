@@ -5,12 +5,13 @@
 
     <!-- If data fetching is not complete, we are showing a div with loading text-->
     <div v-if="!data">Loading...</div>
+
     <!-- If data fetching is successful and we have the data then we are showing the main component -->
     <main v-else class="main">
       <router-view
-        @setGuestNumber="getGuestNumber"
+        @setGuestData="getGuestData"
         :hotelsData="data"
-        :guestNumber="guestNumber"
+        :guestData="guestData"
       />
     </main>
   </div>
@@ -23,21 +24,36 @@ export default {
   data() {
     return {
       data: null,
-      guestNumber: null,
+      guestData: null,
     };
   },
   components: {
     Nav,
   },
   methods: {
-    getGuestNumber(val) {
-      this.guestNumber = val;
+    getGuestData(val) {
+      this.guestData = val;
     },
   },
   created() {
     fetch("data.json")
       .then((res) => res.json())
       .then((res) => (this.data = res));
+  },
+  mounted() {
+    if (localStorage.getItem("guestData")) {
+      try {
+        this.guestData = JSON.parse(localStorage.getItem("guestData"));
+      } catch (e) {
+        localStorage.removeItem("guestData");
+      }
+    }
+  },
+  watch: {
+    guestData(newData) {
+      const parsed = JSON.stringify(newData);
+      localStorage.setItem("guestData", parsed);
+    },
   },
 };
 </script>

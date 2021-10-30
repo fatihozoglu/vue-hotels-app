@@ -72,21 +72,61 @@
             </div>
           </div>
           <div class="item">
-            <label class="d-block mb-1" for="sex">Sex</label>
-            <select name="sex" id="sex">
-              <option value="" disabled selected>Select Your Sex</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.sex.$error }"
+            >
+              <label class="d-block mb-1" for="sex">Sex<span>*</span></label>
+              <select v-model.trim="$v.sex.$model" name="sex" id="sex">
+                <option value="" disabled selected>Select Your Sex</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="error" v-if="!$v.sex.required && $v.sex.$dirty">
+              Please enter your sex
+            </div>
           </div>
           <div class="item">
-            <label for="tc">Identity No.<span>*</span></label>
-            <input id="tc" type="text" name="tc" />
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.tc.$error }"
+            >
+              <label for="tc">Identity No.<span>*</span></label>
+              <input
+                v-model.trim="$v.tc.$model"
+                id="tc"
+                type="text"
+                name="tc"
+              />
+            </div>
+            <div class="error" v-if="!$v.tc.required && $v.tc.$dirty">
+              Please enter your identity number
+            </div>
+            <div class="error" v-if="!$v.tc.identityCheck && $v.tc.$dirty">
+              Please enter a valid identity number
+            </div>
           </div>
           <div class="item">
-            <label for="hes">HES Code<span>*</span></label>
-            <input id="hes" type="text" name="hes" />
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.hes.$error }"
+            >
+              <label for="hes">HES Code<span>*</span></label>
+              <input
+                v-model.trim="$v.hes.$model"
+                id="hes"
+                type="text"
+                name="hes"
+              />
+            </div>
+            <div class="error" v-if="!$v.hes.required && $v.hes.$dirty">
+              Please enter your HES Code
+            </div>
+            <div class="error" v-if="!$v.hes.hesCheck && $v.hes.$dirty">
+              Please enter a valid HES Code
+            </div>
           </div>
           <div class="item">
             <div
@@ -133,6 +173,9 @@ export default {
       lname: "",
       age: "",
       email: "",
+      sex: "",
+      tc: "",
+      hes: "",
     };
   },
   props: {

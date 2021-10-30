@@ -8,7 +8,7 @@
     </p>
     <div class="input-container">
       <input
-        value="Las Vegas"
+        v-model="location"
         class="location-input"
         type="text"
         placeholder="Where are you going?"
@@ -24,13 +24,74 @@
           type="date"
         />
       </div>
-      <div class="guest-input">
-        <span class="me-2">2 Adults</span><span class="me-2">-</span
-        ><span class="me-2">2 Children</span><span class="me-2">-</span>
-        <span>1 Room</span>
+      <div
+        class="guest-input"
+        @mouseenter="isSelectionOpen = true"
+        @mouseleave="isSelectionOpen = false"
+      >
+        <div class="guest-input-header">
+          <span class="me-2">{{ adultNum }} Adults</span
+          ><span class="me-2">-</span
+          ><span class="me-2">{{ childrenNum }} Children</span
+          ><span class="me-2">-</span>
+          <span>{{ roomNum }} Room</span>
+        </div>
+        <div v-show="isSelectionOpen" class="guest-input-body w-100">
+          <div class="d-flex align-items-center w-100 mb-3">
+            <span class="w-50">Adult</span>
+            <div class="d-flex align-items-center w-50">
+              <button
+                @click="adultNum === 1 ? null : adultNum--"
+                class="guest-btn"
+              >
+                -</button
+              ><span class="count-span ms-3 me-3">{{ adultNum }}</span
+              ><button
+                @click="adultNum === 10 ? null : adultNum++"
+                class="guest-btn"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center w-100 mb-3">
+            <span class="w-50">Children</span>
+            <div class="d-flex align-items-center w-50">
+              <button
+                @click="childrenNum === 0 ? null : childrenNum--"
+                class="guest-btn"
+              >
+                -</button
+              ><span class="count-span ms-3 me-3">{{ childrenNum }}</span
+              ><button
+                @click="childrenNum === 10 ? null : childrenNum++"
+                class="guest-btn"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center w-100">
+            <span class="w-50">Room</span>
+            <div class="d-flex align-items-center w-50">
+              <button
+                @click="roomNum === 1 ? null : roomNum--"
+                class="guest-btn"
+              >
+                -</button
+              ><span class="count-span ms-3 me-3">{{ roomNum }}</span
+              ><button
+                @click="roomNum === 10 ? null : roomNum++"
+                class="guest-btn"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <router-link class="search-button" :to="{ name: 'HotelResults' }"
-        ><button>Search</button></router-link
+        ><button @click="setGuestData">Search</button></router-link
       >
     </div>
     <h2>Destination Ideas</h2>
@@ -53,9 +114,27 @@ export default {
   name: "Home",
   data() {
     return {
+      isSelectionOpen: false,
+      location: "Las Vegas",
       checkinDate: "Check-in ",
       checkoutDate: "Check-out ",
+      adultNum: 1,
+      childrenNum: 0,
+      roomNum: 1,
     };
+  },
+  methods: {
+    setGuestData() {
+      this.$emit("setGuestData", {
+        location: this.location,
+        adult: this.adultNum,
+        children: this.childrenNum,
+        room: this.roomNum,
+        days: isNaN(this.calculateDays) ? 1 : this.calculateDays,
+        checkinDate: this.checkinDate,
+        checkoutDate: this.checkoutDate,
+      });
+    },
   },
   computed: {
     calculateDays() {
@@ -149,6 +228,7 @@ export default {
   width: 45%;
 }
 .guest-input {
+  position: relative;
   height: 52px;
   grid-column-start: 5;
   grid-column-end: 7;
@@ -164,9 +244,31 @@ export default {
   cursor: pointer;
   border-right: 4px solid #fcbb01;
 }
+.guest-input-body {
+  padding: 20px;
+  background-color: white;
+  position: absolute;
+  top: 52px;
+  left: 0;
+}
+.guest-btn {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  color: #005999;
+  border: 1px solid #005999;
+  border-radius: 3px;
+}
+.guest-btn:hover {
+  color: white;
+}
 .search-button {
   grid-column-start: 7;
   grid-column-end: 8;
+}
+.count-span {
+  width: 20%;
+  text-align: center;
 }
 button {
   font-size: 20px;

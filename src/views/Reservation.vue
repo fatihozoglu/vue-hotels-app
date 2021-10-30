@@ -1,9 +1,10 @@
 <template>
   <main class="main">
-    <ResForm v-for="(item, index) in guestNumber" :key="index" :num="item" />
-    <div class="btn-block">
-      <button type="submit">Submit</button>
-    </div>
+    <ResForm
+      v-for="(item, index) in guestData.adult + guestData.children"
+      :key="index"
+      :num="item"
+    />
   </main>
 </template>
 
@@ -16,7 +17,8 @@ export default {
     ResForm,
   },
   props: {
-    guestNumber: Number,
+    guestData: Object,
+    selectedHotel: Object,
   },
 };
 </script>
