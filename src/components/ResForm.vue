@@ -1,5 +1,5 @@
 <template>
-  <div class="testbox">
+  <div class="testbox d-flex flex-column">
     <form>
       <fieldset>
         <legend class="rounded">Guest - {{ num }}</legend>
@@ -18,6 +18,7 @@
               id="fname"
               type="text"
               name="fname"
+              placeholder="Fatih"
             />
             <div class="error" v-if="!$v.fname.required && $v.fname.$dirty">
               Name is required
@@ -41,6 +42,7 @@
               id="lname"
               type="text"
               name="lname"
+              placeholder="Ozoglu"
             />
             <div class="error" v-if="!$v.lname.required && $v.lname.$dirty">
               Last name is required
@@ -62,6 +64,7 @@
                 type="number"
                 name="age"
                 v-model.trim="$v.age.$model"
+                placeholder="Must be older than 6"
               />
             </div>
             <div class="error" v-if="!$v.age.required && $v.age.$dirty">
@@ -75,15 +78,15 @@
             <div
               class="form-group"
               :class="{ 'form-group--error': $v.sex.$error }"
-            >
-              <label class="d-block mb-1" for="sex">Sex<span>*</span></label>
-              <select v-model.trim="$v.sex.$model" name="sex" id="sex">
-                <option value="" disabled selected>Select Your Sex</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
+            ></div>
+            <label class="d-block mb-1" for="sex">Sex<span>*</span></label>
+            <select v-model.trim="$v.sex.$model" name="sex" id="sex">
+              <option value="" disabled selected>Select Your Sex</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+
             <div class="error" v-if="!$v.sex.required && $v.sex.$dirty">
               Please enter your sex
             </div>
@@ -92,19 +95,23 @@
             <div
               class="form-group"
               :class="{ 'form-group--error': $v.tc.$error }"
-            >
-              <label for="tc">Identity No.<span>*</span></label>
-              <input
-                v-model.trim="$v.tc.$model"
-                id="tc"
-                type="text"
-                name="tc"
-              />
-            </div>
+            ></div>
+            <label for="tc">Identity No.<span>*</span></label>
+            <input
+              v-model.trim="$v.tc.$model"
+              id="tc"
+              type="text"
+              name="tc"
+              placeholder="Valid Identity No."
+            />
+
             <div class="error" v-if="!$v.tc.required && $v.tc.$dirty">
               Please enter your identity number
             </div>
-            <div class="error" v-if="!$v.tc.identityCheck && $v.tc.$dirty">
+            <div
+              class="error"
+              v-if="$v.tc.$model !== '' && !$v.tc.identityCheck && $v.tc.$dirty"
+            >
               Please enter a valid identity number
             </div>
           </div>
@@ -112,19 +119,22 @@
             <div
               class="form-group"
               :class="{ 'form-group--error': $v.hes.$error }"
-            >
-              <label for="hes">HES Code<span>*</span></label>
-              <input
-                v-model.trim="$v.hes.$model"
-                id="hes"
-                type="text"
-                name="hes"
-              />
-            </div>
+            ></div>
+            <label for="hes">HES Code<span>*</span></label>
+            <input
+              v-model.trim="$v.hes.$model"
+              id="hes"
+              type="text"
+              name="hes"
+              placeholder="Valid HES Code"
+            />
             <div class="error" v-if="!$v.hes.required && $v.hes.$dirty">
               Please enter your HES Code
             </div>
-            <div class="error" v-if="!$v.hes.hesCheck && $v.hes.$dirty">
+            <div
+              class="error"
+              v-if="$v.hes.$model !== '' && !$v.hes.hesCheck && $v.hes.$dirty"
+            >
               Please enter a valid HES Code
             </div>
           </div>
@@ -142,6 +152,7 @@
               id="email"
               type="email"
               name="email"
+              placeholder="fatihozoglu@yahoo.com"
             />
             <div class="error" v-if="!$v.email.required && $v.email.$dirty">
               Email is required
@@ -151,8 +162,31 @@
             </div>
           </div>
           <div class="item">
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.phone.$error }"
+            ></div>
             <label for="phone">Phone<span>*</span></label>
-            <input id="phone" type="tel" name="phone" />
+            <input
+              v-model.trim="$v.phone.$model"
+              id="phone"
+              type="tel"
+              name="phone"
+              placeholder="5395845151"
+            />
+            <div class="error" v-if="!$v.phone.required && $v.phone.$dirty">
+              Phone number is required
+            </div>
+            <div
+              class="error"
+              v-if="
+                $v.phone.$model !== '' &&
+                !$v.phone.phoneCheck &&
+                $v.phone.$dirty
+              "
+            >
+              Please enter a valid phone number
+            </div>
           </div>
         </div>
       </fieldset>
@@ -176,6 +210,7 @@ export default {
       sex: "",
       tc: "",
       hes: "",
+      phone: "",
     };
   },
   props: {

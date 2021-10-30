@@ -43,6 +43,11 @@ function hesCheck(val) {
   return reg.test(val);
 }
 
+function phoneCheck(val) {
+  let reg = /^\d{10}$/;
+  return reg.test(val);
+}
+
 export const FormValidation = {
   validations: {
     fname: {
@@ -71,6 +76,10 @@ export const FormValidation = {
     hes: {
       required,
       hesCheck,
+    },
+    phone: {
+      required,
+      phoneCheck,
     },
   },
 };
