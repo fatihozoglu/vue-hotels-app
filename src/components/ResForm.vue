@@ -19,6 +19,7 @@
               type="text"
               name="fname"
               placeholder="Fatih"
+              ref="input"
             />
             <div class="error" v-if="!$v.fname.required && $v.fname.$dirty">
               Name is required
@@ -102,7 +103,7 @@
               id="tc"
               type="text"
               name="tc"
-              placeholder="Valid Identity No."
+              placeholder="Identity No."
             />
 
             <div class="error" v-if="!$v.tc.required && $v.tc.$dirty">
@@ -126,7 +127,7 @@
               id="hes"
               type="text"
               name="hes"
-              placeholder="Valid HES Code"
+              placeholder="C5V9-4567-24"
             />
             <div class="error" v-if="!$v.hes.required && $v.hes.$dirty">
               Please enter your HES Code
@@ -177,20 +178,14 @@
             <div class="error" v-if="!$v.phone.required && $v.phone.$dirty">
               Phone number is required
             </div>
-            <div
-              class="error"
-              v-if="
-                $v.phone.$model !== '' &&
-                !$v.phone.phoneCheck &&
-                $v.phone.$dirty
-              "
-            >
+            <div class="error" v-if="!$v.phone.phoneCheck && $v.phone.$dirty">
               Please enter a valid phone number
             </div>
           </div>
         </div>
       </fieldset>
       <br />
+      <button @click.prevent="checkCompletion">Submit</button>
     </form>
   </div>
 </template>
@@ -215,6 +210,17 @@ export default {
   },
   props: {
     num: Number,
+    form: String,
+  },
+  methods: {
+    focus() {
+      this.$refs.input.focus();
+    },
+    checkCompletion() {
+      if (this.$v.$dirty && !this.$v.$invalid) {
+        this.$emit("formCompleted");
+      }
+    },
   },
 };
 </script>

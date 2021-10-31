@@ -4,6 +4,8 @@
       v-for="(item, index) in guestData.adult + guestData.children"
       :key="index"
       :num="item"
+      ref="formArray"
+      @formCompleted="nextForm"
     />
   </main>
 </template>
@@ -13,12 +15,26 @@ import ResForm from "../components/ResForm.vue";
 
 export default {
   name: "Reservation",
+  data() {
+    return {
+      count: 0,
+    };
+  },
   components: {
     ResForm,
   },
   props: {
     guestData: Object,
     selectedHotel: Object,
+  },
+  methods: {
+    nextForm() {
+      this.count++;
+      this.$refs.formArray[this.count].focus();
+    },
+  },
+  mounted() {
+    this.$refs.formArray[0].focus();
   },
 };
 </script>

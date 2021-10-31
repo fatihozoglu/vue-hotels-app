@@ -45,7 +45,8 @@ function hesCheck(val) {
 
 function phoneCheck(val) {
   let reg = /^\d{10}$/;
-  return reg.test(val);
+  if (val === "") return true;
+  else return reg.test(val);
 }
 
 export const FormValidation = {

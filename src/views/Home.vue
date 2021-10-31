@@ -140,8 +140,12 @@ export default {
     calculateDays() {
       let checkin = new Date(this.checkinDate);
       let checkout = new Date(this.checkoutDate);
-      let difference = checkout.getTime() - checkin.getTime();
-      return difference / (1000 * 3600 * 24);
+      if (checkin >= checkout) {
+        return 1;
+      } else {
+        let difference = checkout.getTime() - checkin.getTime();
+        return difference / (1000 * 3600 * 24);
+      }
     },
   },
 };
@@ -321,5 +325,8 @@ h2 {
   font-weight: 600;
   color: rgb(241, 241, 241);
   text-shadow: 1px 1px #030303;
+}
+.error {
+  color: red;
 }
 </style>
