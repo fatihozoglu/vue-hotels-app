@@ -1,5 +1,5 @@
 <template>
-  <main class="main">
+  <main class="main" ref="content">
     <div
       v-if="isModalOpen"
       class="
