@@ -4,6 +4,7 @@
       <fieldset>
         <legend class="rounded">Guest - {{ num }}</legend>
         <div class="columns">
+          <!-- Name input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -29,6 +30,7 @@
               {{ $v.fname.$params.minLength.min }} letters.
             </div>
           </div>
+          <!-- Last name input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -53,6 +55,7 @@
               {{ $v.lname.$params.minLength.min }} letters.
             </div>
           </div>
+          <!-- Age input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -75,6 +78,7 @@
               Must be older than {{ $v.age.$params.minValue.min }}
             </div>
           </div>
+          <!-- Sex input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -92,6 +96,7 @@
               Please enter your sex
             </div>
           </div>
+          <!-- T.C. Identity No. input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -116,6 +121,7 @@
               Please enter a valid identity number
             </div>
           </div>
+          <!-- HES Code input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -139,6 +145,7 @@
               Please enter a valid HES Code
             </div>
           </div>
+          <!-- E-mail input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -162,6 +169,7 @@
               Please enter a valid e-mail adress
             </div>
           </div>
+          <!-- Phone input area and validations -->
           <div class="item">
             <div
               class="form-group"
@@ -185,9 +193,11 @@
         </div>
       </fieldset>
       <br />
+      <!-- Showing "Next Guest" button for forms except the last form item-->
       <button v-if="id !== totalGuests - 1" @click.prevent="checkCompletion">
         Next Guest
       </button>
+      <!-- Showing "Go to Payment" button for the last form item to route to /payment Payment view component -->
       <button v-else @click.prevent="goPayment">Go to Payment</button>
     </form>
   </div>
@@ -223,6 +233,7 @@ export default {
     focus() {
       this.$refs.input.focus();
     },
+    //Checking the form if it is completed and there is no error, if it is complete focusing next form else giving validation error
     checkCompletion() {
       if (this.$v.$dirty && !this.$v.$invalid) {
         this.$emit("formCompleted", {
@@ -240,6 +251,7 @@ export default {
         this.$v.$touch();
       }
     },
+    //Checking if all forms are complete and if they are, routing to /payment route
     goPayment() {
       this.checkCompletion();
       if (this.allGuestInfo.length === this.totalGuests) {

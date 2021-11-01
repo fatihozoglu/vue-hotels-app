@@ -6,6 +6,7 @@
     <p class="home-text mb-5">
       From cozy country homes to funky city apartments
     </p>
+    <!-- All inputs are enclosed into input-container -->
     <div class="input-container">
       <input
         v-model="location"
@@ -13,6 +14,7 @@
         type="text"
         placeholder="Where are you going?"
       />
+      <!-- Date inputs starts here-->
       <div class="date-input-container">
         <span style="width: 45%; text-align: center">{{ checkinDate }}</span>
         <span style="width: 10%">-</span>
@@ -24,6 +26,9 @@
           type="date"
         />
       </div>
+      <!-- Date inputs ends here-->
+
+      <!-- Toggling guest input number selection when mouse enters and leaves the input area-->
       <div
         class="guest-input"
         @mouseenter="isSelectionOpen = true"
@@ -90,10 +95,13 @@
           </div>
         </div>
       </div>
+      <!--Accomodation information is sent to parent(App) component and goes to HotelResults route-->
       <router-link class="search-button" :to="{ name: 'HotelResults' }"
         ><button @click="setGuestData">Search</button></router-link
       >
     </div>
+
+    <!-- Some city photos and names for decoration -->
     <h2>Destination Ideas</h2>
     <div class="destination-ideas">
       <div class="destination1">
@@ -124,6 +132,7 @@ export default {
     };
   },
   methods: {
+    //When inputs are filled by the guest and search button clicked, emits setGuestData event and sends data to parent(App) component
     setGuestData() {
       this.$emit("setGuestData", {
         location: this.location,
@@ -135,6 +144,7 @@ export default {
         checkoutDate: this.checkoutDate,
       });
     },
+    // Getting current date and giving it as initial value to checkinDate
     today() {
       let today = new Date();
       today = `${today.getFullYear()}-${today.getMonth() + 1}-${
@@ -142,6 +152,7 @@ export default {
       }`;
       this.checkinDate = today;
     },
+    //Getting tomorrow date and giving it as initial value to checkoutDate
     tomorrow() {
       let today = Date.now();
       let tomorrow = new Date(today + 86400000);
@@ -154,6 +165,7 @@ export default {
     },
   },
   computed: {
+    //Calculates the accommodation days based on checkin and checkout dates
     calculateDays() {
       let checkin = new Date(this.checkinDate);
       let checkout = new Date(this.checkoutDate);
@@ -168,6 +180,7 @@ export default {
     },
   },
   mounted() {
+    // Set checkin and checkout dates as today and tomorrow when the component is mounted
     this.today();
     this.tomorrow();
   },

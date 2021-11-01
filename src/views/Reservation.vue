@@ -1,5 +1,6 @@
 <template>
   <main class="main">
+    <!-- Generating form fo each guest based on the number of guests-->
     <ResForm
       v-for="(item, index) in totalGuests"
       :key="index"
@@ -34,6 +35,7 @@ export default {
     selectedHotel: Object,
   },
   methods: {
+    // If form is completed and there are no validation errors, saves guest data and focusesto the next form
     nextForm(personalInfo) {
       if (
         this.allGuestInfo.find((item) => item.formId === personalInfo.formId)
@@ -49,16 +51,19 @@ export default {
         this.$refs.formArray[this.count].focus();
       }
     },
+    // Sends guest info to parent component (App) to make it available in /payment route
     sendGuestInfo() {
       this.$emit("sendGuestInfo", this.allGuestInfo);
     },
   },
   computed: {
+    //Calculate total number of guests (adults + children)
     totalGuests() {
       return this.guestData.adult + this.guestData.children;
     },
   },
   mounted() {
+    //Focus on the first form when the component is mounted
     this.$refs.formArray[0].focus();
   },
 };

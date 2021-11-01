@@ -1,5 +1,6 @@
 <template>
   <div class="star-component d-flex align-items-center">
+    <!-- Producing stars based on prop (num)-->
     <div v-for="(item, index) of num" :key="index">
       <span class="fa fa-star yellow"></span>
     </div>

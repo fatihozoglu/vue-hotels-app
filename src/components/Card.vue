@@ -1,10 +1,12 @@
 <template>
   <div class="custom-card mb-3">
+    <!-- Hotel image-->
     <img
       :src="require(`../assets/${hotel.photo}`)"
       class="card-img rounded me-3"
       alt="hotel"
     />
+    <!--Hotel details (name,rooms,price)-->
     <div class="w-50">
       <h5 class="card-title blue mb-1">
         {{ hotel.name }}
@@ -24,6 +26,7 @@
         {{ hotel.cancel }}
       </p>
     </div>
+    <!-- Rating and stars -->
     <div class="ms-auto d-flex flex-column justify-content-between">
       <div class="d-flex justify-content-end">
         <div class="d-flex flex-column">
@@ -66,15 +69,18 @@ export default {
   },
   mixins: [dollarSign],
   computed: {
+    //Transforms hotel name into "hotels/hotel-name-here"
     hotelName() {
       return this.hotel.name.split(" ").join("-");
     },
+    //We are setting rating of the hotel based on the points from users
     setRatingText() {
       if (this.hotel.rating > 9) return "Wonderful";
       else if (this.hotel.rating > 8.5) return "Excellent";
       else if (this.hotel.rating > 8) return "Very Good";
       else return "Good";
     },
+    //Calculating 18% tax for hotel price
     tax() {
       return (this.hotel.price * this.guestData.days * 18) / 100;
     },
