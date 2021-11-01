@@ -59,7 +59,7 @@ export default {
 <style scoped>
 .main {
   background-color: #f5f5f5;
-  padding: 120px 50px 50px 50px;
+  padding: 100px 50px 20px 50px;
   min-height: 100vh;
 }
 .btn-block {

@@ -14,11 +14,9 @@
         placeholder="Where are you going?"
       />
       <div class="date-input-container">
-        <span style="width: 40%; text-align: center" class="me-3">{{
-          checkinDate
-        }}</span>
-        <span class="me-3">-</span>
-        <span style="width: 40%; text-align: center">{{ checkoutDate }}</span>
+        <span style="width: 45%; text-align: center">{{ checkinDate }}</span>
+        <span style="width: 10%">-</span>
+        <span style="width: 45%; text-align: start">{{ checkoutDate }}</span>
         <input v-model="checkinDate" class="datepicker-input" type="date" />
         <input
           v-model="checkoutDate"
@@ -139,16 +137,20 @@ export default {
     },
     today() {
       let today = new Date();
-      this.checkinDate = `${today.getFullYear()}-${
-        today.getMonth() + 1
-      }-${today.getDate()}`;
+      today = `${today.getFullYear()}-${today.getMonth() + 1}-${
+        today.getDate().length === 2 ? today.getDate() : "0" + today.getDate()
+      }`;
+      this.checkinDate = today;
     },
     tomorrow() {
       let today = Date.now();
       let tomorrow = new Date(today + 86400000);
-      this.checkoutDate = `${tomorrow.getFullYear()}-${
-        tomorrow.getMonth() + 1
-      }-${tomorrow.getDate()}`;
+      tomorrow = `${tomorrow.getFullYear()}-${tomorrow.getMonth() + 1}-${
+        tomorrow.getDate().length === 2
+          ? tomorrow.getDate()
+          : "0" + tomorrow.getDate()
+      }`;
+      this.checkoutDate = tomorrow;
     },
   },
   computed: {
@@ -230,7 +232,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  width: 45%;
+  width: 50%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
@@ -250,7 +252,7 @@ export default {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 45%;
+  width: 50%;
 }
 .guest-input {
   position: relative;
