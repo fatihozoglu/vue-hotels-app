@@ -29,6 +29,9 @@
       </div>
     </div>
     <div v-if="!isModalOpen" class="booking-details">
+      <button class="mb-3" @click="download">
+        Download Your Booking Details
+      </button>
       <h1 class="h3">Booking Confirmation Details</h1>
       <div class="hotel-details mb-3">
         <p class="m-0 mb-1">Hotel Name: {{ selectedHotel.name }}</p>
@@ -44,7 +47,7 @@
         <p class="m-0 mb-1">Rooms: {{ guestData.room }} Room(s)</p>
         <p class="m-0 mb-1">Total Price: $ {{ totalPrice }}</p>
       </div>
-      <div class="guest-details d-flex gap-5">
+      <div class="guest-details d-flex gap-5 mb-4">
         <div v-for="(guest, index) in allGuestInfo" :key="index" class="guest">
           <h2 class="h5">Guest {{ index + 1 }}</h2>
           <p class="m-0 mb-1">Name: {{ guest.fname }}</p>
@@ -64,6 +67,8 @@
 </template>
 
 <script>
+import html2pdf from "html2pdf.js";
+
 export default {
   name: "Reservation",
   data() {
@@ -81,6 +86,9 @@ export default {
     closeModal() {
       setTimeout(() => (this.isModalOpen = false), 6000);
       setTimeout(() => (this.success = true), 3000);
+    },
+    download() {
+      html2pdf(this.$refs.content);
     },
   },
   computed: {
@@ -125,5 +133,18 @@ export default {
   border: 1px solid rgb(177, 177, 177);
   border-radius: 5px;
   padding: 20px;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #1a4a8d;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  background: #14396d;
 }
 </style>
