@@ -10,8 +10,10 @@
     <main v-else class="main">
       <router-view
         @setGuestData="getGuestData"
+        @sendGuestInfo="getGuestInfo"
         :hotelsData="data"
         :guestData="guestData"
+        :allGuestInfo="allGuestInfo"
       />
     </main>
   </div>
@@ -25,6 +27,7 @@ export default {
     return {
       data: null,
       guestData: null,
+      allGuestInfo: null,
     };
   },
   components: {
@@ -33,6 +36,9 @@ export default {
   methods: {
     getGuestData(val) {
       this.guestData = val;
+    },
+    getGuestInfo(val) {
+      this.allGuestInfo = val;
     },
   },
   created() {

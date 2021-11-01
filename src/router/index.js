@@ -32,6 +32,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "Reservation" */ "../views/Reservation.vue"),
   },
+  {
+    path: "/payment",
+    name: "Payment",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "Reservation" */ "../views/Payment.vue"),
+  },
 ];
 
 const router = new VueRouter({

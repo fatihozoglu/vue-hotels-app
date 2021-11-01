@@ -188,7 +188,7 @@
       <button v-if="id !== totalGuests - 1" @click.prevent="checkCompletion">
         Next Guest
       </button>
-      <button v-else @click.prevent="checkCompletion">Go to Payment</button>
+      <button v-else @click.prevent="goPayment">Go to Payment</button>
     </form>
   </div>
 </template>
@@ -216,6 +216,8 @@ export default {
     form: String,
     id: Number,
     totalGuests: Number,
+    allGuestInfo: Array,
+    selectedHotel: Object,
   },
   methods: {
     focus() {
@@ -236,6 +238,16 @@ export default {
         });
       } else {
         this.$v.$touch();
+      }
+    },
+    goPayment() {
+      this.checkCompletion();
+      if (this.allGuestInfo.length === this.totalGuests) {
+        this.$emit("goPayment");
+        this.$router.push({
+          name: "Payment",
+          params: { selectedHotel: this.selectedHotel },
+        });
       }
     },
   },

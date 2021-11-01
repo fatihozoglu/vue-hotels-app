@@ -6,8 +6,11 @@
       :num="item"
       :id="index"
       :totalGuests="totalGuests"
+      :allGuestInfo="allGuestInfo"
+      :selectedHotel="selectedHotel"
       ref="formArray"
       @formCompleted="nextForm"
+      @goPayment="sendGuestInfo"
     />
   </main>
 </template>
@@ -41,8 +44,13 @@ export default {
         this.allGuestInfo.splice(sameFormIndex, 1);
       }
       this.allGuestInfo.push(personalInfo);
-      this.count = personalInfo.formId + 1;
-      this.$refs.formArray[this.count].focus();
+      if (personalInfo.formId + 1 !== this.totalGuests) {
+        this.count = personalInfo.formId + 1;
+        this.$refs.formArray[this.count].focus();
+      }
+    },
+    sendGuestInfo() {
+      this.$emit("sendGuestInfo", this.allGuestInfo);
     },
   },
   computed: {
