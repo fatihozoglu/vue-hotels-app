@@ -99,38 +99,30 @@
           <div>
             <p class="m-0 details-heading">Room Price</p>
             <p class="m-0 details-body">
-              $
               {{
-                (
-                  selectedHotel.price *
-                  guestData.room *
-                  guestData.days
-                ).toLocaleString("en-US")
+                (selectedHotel.price * guestData.room * guestData.days)
+                  | dollarSign
               }}
             </p>
           </div>
           <div>
             <p class="m-0 details-heading">Taxes</p>
             <p class="m-0 details-body">
-              $
               {{
-                (
-                  (selectedHotel.price * guestData.room * guestData.days * 18) /
-                  100
-                ).toLocaleString("en-US")
+                ((selectedHotel.price * guestData.room * guestData.days * 18) /
+                  100)
+                  | dollarSign
               }}
             </p>
           </div>
           <div>
             <p class="m-0 details-heading">Total Price</p>
             <p class="m-0 details-body">
-              $
               {{
-                (
-                  selectedHotel.price * guestData.room * guestData.days +
+                (selectedHotel.price * guestData.room * guestData.days +
                   (selectedHotel.price * guestData.room * guestData.days * 18) /
-                    100
-                ).toLocaleString("en-US")
+                    100)
+                  | dollarSign
               }}
             </p>
           </div>
@@ -149,6 +141,7 @@
 
 <script>
 import Star from "../components/Star.vue";
+import dollarSign from "../mixins/Filters";
 
 export default {
   name: "HotelDetails",
@@ -157,6 +150,7 @@ export default {
       selectedHotel: null,
     };
   },
+  mixins: [dollarSign],
   props: {
     hotelsData: {
       type: Array,

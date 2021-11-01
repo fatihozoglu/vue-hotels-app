@@ -38,14 +38,9 @@
           {{ guestData.room }} room(s)</small
         >
         <p class="my-0 h4">
-          $
-          {{
-            (hotel.price * guestData.days * guestData.room).toLocaleString(
-              "en-US"
-            )
-          }}
+          {{ (hotel.price * guestData.days * guestData.room) | dollarSign }}
         </p>
-        <small>+$ {{ tax }} taxes and charges</small>
+        <small>+{{ tax | dollarSign }} taxes and charges</small>
         <router-link
           :to="{ name: 'HotelDetails', params: { name: hotelName } }"
           class="book-btn rounded d-block mt-2"
@@ -58,6 +53,8 @@
 
 <script>
 import Star from "../components/Star.vue";
+import dollarSign from "../mixins/Filters";
+
 export default {
   name: "Card",
   components: {
@@ -67,6 +64,7 @@ export default {
     hotel: Object,
     guestData: Object,
   },
+  mixins: [dollarSign],
   computed: {
     hotelName() {
       return this.hotel.name.split(" ").join("-");
@@ -78,10 +76,7 @@ export default {
       else return "Good";
     },
     tax() {
-      return (
-        (this.hotel.price * this.guestData.days * 18) /
-        100
-      ).toLocaleString("en-US");
+      return (this.hotel.price * this.guestData.days * 18) / 100;
     },
   },
 };
