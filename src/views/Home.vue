@@ -14,9 +14,11 @@
         placeholder="Where are you going?"
       />
       <div class="date-input-container">
-        <span class="me-3">{{ checkinDate }}</span>
+        <span style="width: 40%; text-align: center" class="me-3">{{
+          checkinDate
+        }}</span>
         <span class="me-3">-</span>
-        <span>{{ checkoutDate }}</span>
+        <span style="width: 40%; text-align: center">{{ checkoutDate }}</span>
         <input v-model="checkinDate" class="datepicker-input" type="date" />
         <input
           v-model="checkoutDate"
@@ -116,8 +118,8 @@ export default {
     return {
       isSelectionOpen: false,
       location: "Las Vegas",
-      checkinDate: "Check-in ",
-      checkoutDate: "Check-out ",
+      checkinDate: null,
+      checkoutDate: null,
       adultNum: 1,
       childrenNum: 0,
       roomNum: 1,
@@ -130,10 +132,23 @@ export default {
         adult: this.adultNum,
         children: this.childrenNum,
         room: this.roomNum,
-        days: isNaN(this.calculateDays) ? 1 : this.calculateDays,
+        days: this.calculateDays,
         checkinDate: this.checkinDate,
         checkoutDate: this.checkoutDate,
       });
+    },
+    today() {
+      let today = new Date();
+      this.checkinDate = `${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()}`;
+    },
+    tomorrow() {
+      let today = Date.now();
+      let tomorrow = new Date(today + 86400000);
+      this.checkoutDate = `${tomorrow.getFullYear()}-${
+        tomorrow.getMonth() + 1
+      }-${tomorrow.getDate()}`;
     },
   },
   computed: {
@@ -141,12 +156,18 @@ export default {
       let checkin = new Date(this.checkinDate);
       let checkout = new Date(this.checkoutDate);
       if (checkin >= checkout) {
+        this.today();
+        this.tomorrow();
         return 1;
       } else {
         let difference = checkout.getTime() - checkin.getTime();
         return difference / (1000 * 3600 * 24);
       }
     },
+  },
+  mounted() {
+    this.today();
+    this.tomorrow();
   },
 };
 </script>
@@ -227,7 +248,7 @@ export default {
 }
 .checkout {
   position: absolute;
-  left: 150px;
+  left: 50%;
   top: 0;
   width: 45%;
 }
@@ -294,7 +315,7 @@ h2 {
 }
 .destination-ideas {
   width: 100%;
-  height: 250px;
+  min-height: 250px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
@@ -328,5 +349,35 @@ h2 {
 }
 .error {
   color: red;
+}
+
+@media only screen and (max-width: 1000px) {
+  .input-container {
+    grid-template-columns: 1fr;
+  }
+  .location-input,
+  .date-input-container,
+  .guest-input {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    border-right: none;
+    border-bottom: 4px solid #fcbb01;
+  }
+  .search-button {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    height: 52px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .destination-ideas {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .destination1,
+  .destination2,
+  .destination3 {
+    height: 250px;
+  }
 }
 </style>

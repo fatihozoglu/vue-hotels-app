@@ -1,9 +1,11 @@
 <template>
   <main class="main">
     <ResForm
-      v-for="(item, index) in guestData.adult + guestData.children"
+      v-for="(item, index) in totalGuests"
       :key="index"
       :num="item"
+      :id="index"
+      :totalGuests="totalGuests"
       ref="formArray"
       @formCompleted="nextForm"
     />
@@ -17,6 +19,7 @@ export default {
   name: "Reservation",
   data() {
     return {
+      allGuestInfo: [],
       count: 0,
     };
   },
@@ -28,9 +31,23 @@ export default {
     selectedHotel: Object,
   },
   methods: {
-    nextForm() {
-      this.count++;
+    nextForm(personalInfo) {
+      if (
+        this.allGuestInfo.find((item) => item.formId === personalInfo.formId)
+      ) {
+        let sameFormIndex = this.allGuestInfo.findIndex(
+          (item) => item.formId === personalInfo.formId
+        );
+        this.allGuestInfo.splice(sameFormIndex, 1);
+      }
+      this.allGuestInfo.push(personalInfo);
+      this.count = personalInfo.formId + 1;
       this.$refs.formArray[this.count].focus();
+    },
+  },
+  computed: {
+    totalGuests() {
+      return this.guestData.adult + this.guestData.children;
     },
   },
   mounted() {

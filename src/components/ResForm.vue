@@ -185,7 +185,10 @@
         </div>
       </fieldset>
       <br />
-      <button @click.prevent="checkCompletion">Submit</button>
+      <button v-if="id !== totalGuests - 1" @click.prevent="checkCompletion">
+        Next Guest
+      </button>
+      <button v-else @click.prevent="checkCompletion">Go to Payment</button>
     </form>
   </div>
 </template>
@@ -211,6 +214,8 @@ export default {
   props: {
     num: Number,
     form: String,
+    id: Number,
+    totalGuests: Number,
   },
   methods: {
     focus() {
@@ -218,7 +223,19 @@ export default {
     },
     checkCompletion() {
       if (this.$v.$dirty && !this.$v.$invalid) {
-        this.$emit("formCompleted");
+        this.$emit("formCompleted", {
+          formId: this.id,
+          fname: this.fname,
+          lname: this.lname,
+          age: this.age,
+          email: this.email,
+          sex: this.sex,
+          tc: this.tc,
+          hes: this.hes,
+          phone: this.phone,
+        });
+      } else {
+        this.$v.$touch();
       }
     },
   },
@@ -329,7 +346,7 @@ select {
   text-align: center;
 }
 button {
-  width: 150px;
+  width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;

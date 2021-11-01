@@ -79,10 +79,11 @@
     </div>
     <div class="card-container" v-if="hotelsData">
       <h3 class="header mb-3">
-        {{ guestData.location }}: {{ hotelsData.length }} properties found
+        {{ guestData.location }}: {{ selectedLocationHotels.length }} properties
+        found
       </h3>
       <Card
-        v-for="hotel in hotelsData"
+        v-for="hotel in selectedLocationHotels"
         :key="hotel.id"
         :hotel="hotel"
         :guestData="guestData"
@@ -105,6 +106,13 @@ export default {
       type: Object,
     },
   },
+  computed: {
+    selectedLocationHotels() {
+      return this.hotelsData.filter(
+        (item) => item.location === this.guestData.location
+      );
+    },
+  },
   components: {
     Card,
   },
@@ -113,6 +121,7 @@ export default {
 
 <style scoped>
 .main {
+  min-height: 100vh;
   display: grid;
   column-gap: 30px;
   grid-template-columns: repeat(4, 1fr);
@@ -162,5 +171,18 @@ h2 {
 .header {
   font-size: 24px;
   font-weight: 700;
+}
+
+@media only screen and (max-width: 1200px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  .search-area {
+    display: none;
+  }
+  .card-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
 }
 </style>
