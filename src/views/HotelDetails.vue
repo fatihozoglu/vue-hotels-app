@@ -1,5 +1,6 @@
 <template>
   <main class="main">
+    <!-- Hotel details information is shown here(name, stars, adress)-->
     <div class="d-flex">
       <h4 class="hotel-name m-0 me-2">{{ selectedHotel.name }}</h4>
       <Star class="m-0" :num="selectedHotel.star" />
@@ -13,6 +14,7 @@
       >{{ selectedHotel.adress }}
     </p>
     <div class="d-flex gap-5">
+      <!-- Carousel for showing selected hotel's detail photos -->
       <div
         id="carouselExampleFade"
         class="carousel slide carousel-fade w-50"
@@ -50,6 +52,9 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      <!-- Carousel ends here -->
+
+      <!-- Shows the booking details(checkin date, checkout date, days, room number, price) -->
       <div class="w-50">
         <h2 class="heading">Booking Details</h2>
         <div
@@ -127,6 +132,8 @@
             </p>
           </div>
         </div>
+
+        <!-- Route for going reservation page and sending selected hotel information to the reservation page -->
         <router-link
           :to="{
             name: 'Reservation',
@@ -165,6 +172,7 @@ export default {
   components: {
     Star,
   },
+  // Shows the selected hotel based on the name parameter coming from router in hotels/hotel-name-here format
   created() {
     this.selectedHotel = this.hotelsData.find(
       (item) => item.name.split(" ").join("-") === this.name

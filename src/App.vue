@@ -34,19 +34,23 @@ export default {
     Nav,
   },
   methods: {
+    //Takes guest data (adult/children guest number, checkin/checkout date, how many days to stay, location)
     getGuestData(val) {
       this.guestData = val;
     },
+    //Getting all form data for each guest from child component when all forms are completed by guests
     getGuestInfo(val) {
       this.allGuestInfo = val;
     },
   },
   created() {
+    //Fetch data when app component is created
     fetch("data.json")
       .then((res) => res.json())
       .then((res) => (this.data = res));
   },
   mounted() {
+    //Add guest data to localStorage and get it back from localStrorage if it exists
     if (localStorage.getItem("guestData")) {
       try {
         this.guestData = JSON.parse(localStorage.getItem("guestData"));
@@ -56,6 +60,7 @@ export default {
     }
   },
   watch: {
+    //Wathcing changes in guest data to add it to localStorage when it is changed
     guestData(newData) {
       const parsed = JSON.stringify(newData);
       localStorage.setItem("guestData", parsed);

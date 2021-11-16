@@ -1,5 +1,6 @@
 import { required, minLength, minValue, email } from "vuelidate/lib/validators";
 
+//TC Identity No. checking algorithm for validation
 function identityCheck(val) {
   var odd = 0,
     even = 0,
@@ -38,11 +39,13 @@ function identityCheck(val) {
   return true;
 }
 
+//HES Code checking algorithm for validation
 function hesCheck(val) {
   let reg = /^[A-Z][0-9][A-Z][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9]$/g;
   return reg.test(val);
 }
 
+//Phone format checking algorithm (format => 5557778899)
 function phoneCheck(val) {
   let reg = /^\d{10}$/;
   if (val === "") return true;

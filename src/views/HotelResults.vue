@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <!-- This part shows the guest preferences based on inputs in home page -->
     <div class="search-area">
       <h2>Search</h2>
       <div class="w-100 mb-1">
@@ -77,10 +78,12 @@
         ><button class="search-btn">Search</button></router-link
       >
     </div>
+    <!-- Container for card components -->
     <div class="card-container" v-if="hotelsData">
       <h3 class="header mb-3">
         {{ guestData.location }}: {{ selectedLocationHotels.length }} properties
         found
+        <!--Generating card components based on our hotels data-->
       </h3>
       <Card
         v-for="hotel in selectedLocationHotels"
@@ -107,6 +110,7 @@ export default {
     },
   },
   computed: {
+    //Filters the results based on selected location by the guest
     selectedLocationHotels() {
       return this.hotelsData.filter(
         (item) => item.location === this.guestData.location

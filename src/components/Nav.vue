@@ -1,6 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
+      <!--Clickable company logo routing to the home page-->
       <router-link class="navbar-brand me-5" :to="{ name: 'Home' }"
         ><img class="img-fluid" alt="logo" src="../assets/logo.png"
       /></router-link>
@@ -15,6 +16,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      <!--Navigation links all routing to the home page-->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">

@@ -1,5 +1,6 @@
 <template>
   <main class="main" ref="content">
+    <!-- Modal to show payment status -->
     <div
       v-if="isModalOpen"
       class="
@@ -28,10 +29,14 @@
         <div>Payment is successful</div>
       </div>
     </div>
+
+    <!--When modal is closed, this area shows the booking and guests details-->
     <div v-if="!isModalOpen" class="booking-details">
+      <!-- Button for downloading booking and guests detail as PDF (html2pdf.js)-->
       <button class="mb-3" @click="download">
         Download Your Booking Details
       </button>
+      <!--Booking confirmation details with hotel and guest info-->
       <h1 class="h3">Booking Confirmation Details</h1>
       <div class="hotel-details mb-3">
         <p class="m-0 mb-1">Hotel Name: {{ selectedHotel.name }}</p>
